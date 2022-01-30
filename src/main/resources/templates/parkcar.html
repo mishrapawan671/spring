@@ -11,22 +11,23 @@
 		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<title>Hello, world!</title>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
 </head>
 
 <body>
 
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-		<a class="navbar-brand" href="/">Parking System</a>
+		<a class="navbar-brand" style="color:white" href="/"><span style="color:yellow;">Parking</span>System</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -40,15 +41,49 @@
 				<li class="nav-item">
 					<a class="nav-link" href="parkcar">Get Slot</a>
 				</li>
-				
+
 			</ul>
-					</div>
+		</div>
 	</nav>
 	<!-- Dispay details of car -->
-        
+
+
 	
-     
 	<div class="conatainer p-5">
+		<div th:if="${car}!=null">
+			<table id="ticket">
+				<tr>
+					<th colspan=3>Parking Ticket
+					<th>
+				</tr>
+				<tr>
+					<th>Color</th>
+					<th>Registraion No</th>
+					<th>Parking Slot</th>
+				</tr>
+				<tr>
+					<td th:text="${car.color}"></td>
+					<td th:text="${car.registration}"></td>
+					<td th:text="${car.slot}">1</td>
+				</tr>
+
+			</table>
+			<button id="myBtn" class="btn btn-primary">
+			Print</button>
+			<script>
+		document.getElementById("myBtn").addEventListener("click", function () {
+			window.print();
+			document.getElementById("ticket").remove();
+			document.getElementById("myBtn").remove();
+		});
+	</script>
+		</div>
+		
+
+
+		<span th:text="${msg}"></span>
+
+
 		<form th:action "@{/parkcar}" method="POST">
 			<div class="form-row">
 				<div class="col">

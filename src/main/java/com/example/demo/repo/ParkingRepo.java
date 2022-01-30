@@ -10,7 +10,7 @@ import com.example.demo.entity.Car;
 
 public class ParkingRepo {
 	
-	private HashMap<Integer,Car>parkSpace=new HashMap<>();
+	private HashMap<String,Car>parkSpace=new HashMap<>();
 	private PriorityQueue<Integer>priority=new PriorityQueue<>();
 	
 	public ParkingRepo()
@@ -23,7 +23,7 @@ public class ParkingRepo {
 	
 	public Car addCar(Car c)
 	{
-		if(priority.size()==0)
+		if(priority.size()==0||parkSpace.containsKey(c.getRegistration()))
 		{
 			return null;
 		}
@@ -31,7 +31,7 @@ public class ParkingRepo {
 		{   
 			
 		 	 c.setSlot(priority.poll());
-		 	 parkSpace.put(c.getSlot(),c);
+		 	 parkSpace.put(c.getRegistration(),c);
 		 	return c;
 		}
 		
@@ -40,9 +40,18 @@ public class ParkingRepo {
 	
 	public Car removeCar(int slot)
 	{
-		if(parkSpace.containsKey(slot))
+		String reg="N";
+		for(Entry<String, Car> e :parkSpace.entrySet())
 		{
-			Car c=parkSpace.remove(slot);
+			if(e.getValue().getSlot()==slot)
+			{
+				reg=e.getValue().getRegistration();
+				break;
+			}
+		}
+		if(parkSpace.containsKey(reg))
+		{
+			Car c=parkSpace.remove(reg);
 			priority.offer(c.getSlot());
 			
 			return c;
@@ -59,11 +68,28 @@ public class ParkingRepo {
 	public ArrayList<Car> getAllCar()
 	{
 		ArrayList<Car>list=new ArrayList<>();
-		for(Entry<Integer, Car> e :parkSpace.entrySet())
+		for(Entry<String, Car> e :parkSpace.entrySet())
 		{
 			list.add(e.getValue());
 		}
 		return list;
+	}
+
+	public String removeByreg(String reg) {
+		    
+		
+		      Car c=parkSpace.remove(reg);
+		      System.out.println("removed from reo "+c);
+		      if(c==null)
+		      {
+		    	  return "No Car With this Registration";
+		      }
+		      else
+		      {
+		    	  return "Car Removed";
+		      }
+	
+		
 	}
 
 	

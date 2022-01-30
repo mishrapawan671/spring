@@ -1,59 +1,102 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.com">
 
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
 
-	<title>Hello, world!</title>
-	
+<title>Hello, world!</title>
+<script>
+
+function fun()
+{
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
+
 </head>
 
 <body>
 
 
-	<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-		<a class="navbar-brand" href="/">Parking System</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+		<a class="navbar-brand" style="color: white" href="/"><span
+			style="color: yellow;">Parking</span>System</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<div class="collapse navbar-collapse navbar-light" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-					<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="parkcar">Get Slot</a>
-				</li>
-				
+				<li class="nav-item active"><a class="nav-link" href="/">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="parkcar">Get
+						Slot</a></li>
+				<li class="nav-item"><a id="show"class="nav-link  " 
+				    style=" cursor:pointer"
+					onclick="fun()">RemoveByReg</a></li>
+
+			</ul>
 		</div>
 	</nav>
 
+
+
 	
+
+	<Span id="myDIV" class="position-fixed" style="Display: none">
+		<form action="removeByReg" method="post" style="display: inline-block"
+			class="p-2 ml-2 mb-2 bg-primary text-white">
+			<label>Registration Number</label> <input type="text" name="registration"
+				id="formGroupExampleInput" placeholder="Registration">
+			<Button class="btn btn-danger" type="Submit">Remove</Button>
+		</form>
+	</Span>
+		
+
+
+
+
+
 	<div class="conatainer p-5">
+	<span class ="text-danger" th:text="${msg}"/>
 		<table class="table table-striped">
 			<thead class="bg-primary text-white">
 				<tr>
-					
+
 					<th scope="col">Registration No.</th>
 					<th scope="col">Color</th>
 					<th scope="col">Slot No</th>
+					<th scope="col">Date Time</th>
 					<th scope="col">action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="e:${car}">
-				
+
 					<td th:text="${e.registration}" />
 					<td th:text="${e.color}" />
 					<td th:text="${e.slot}" />
-					<td><a class="btn btn-sm btn-danger" th:href="@{/delete/{slot}(slot=${e.slot})}"> delete</td>>
+					<td th:text="${e.Date}" />
+
+					<td><a class="btn btn-sm btn-danger"
+						th:href="@{/delete/{slot}(slot=${e.slot})}"> delete</td>>
 				</tr>
 			</tbody>
 		</table>
@@ -68,10 +111,12 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
 		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
 		crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
 		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
 		crossorigin="anonymous"></script>
 </body>

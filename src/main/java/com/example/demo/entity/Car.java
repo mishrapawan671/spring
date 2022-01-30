@@ -6,7 +6,16 @@ public class Car {
 	String registration;
 	String color;
 	int slot;
+	String Date ;
 	
+	public String getDate() {
+		return Date;
+	}
+
+	public void setDate(String date) {
+		Date = date;
+	}
+
 	public int getSlot() {
 		return slot;
 	}
@@ -17,11 +26,10 @@ public class Car {
 
 	
 	
-     public boolean validate(Car c)
+     public boolean isValid(Car c)
      {
-    	 if(c.color.trim().length()==0||c.registration.trim().length()==0)
+    	 if(c.color.trim().length()==0||c.registration.trim().length()<9)
     	 {
-    	
     		 return false;
     	 }
     	  return true;
@@ -59,6 +67,7 @@ public class Car {
 		this.registration = registration;
 		this.color = color;
 	}
+
 	
 	
 
